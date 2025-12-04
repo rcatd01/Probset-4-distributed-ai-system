@@ -27,5 +27,11 @@
     <ClCompile Include="ServerMain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="OcrProcessor.h">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OcrProcessor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

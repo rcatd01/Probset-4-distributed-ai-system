@@ -5,6 +5,8 @@
 #include <grpcpp/grpcpp.h>
 #include "ocr_service.grpc.pb.h"
 
+#include "OcrProcessor.h"
+
 using grpc::Server;
 using grpc::ServerBuilder;
 using grpc::ServerContext;
@@ -19,13 +21,23 @@ public:
     Status ProcessImage(ServerContext* context,
         const ImageRequest* request,
         ImageResponse* reply) override {
-        std::cout << "Received request id=" << request->id()
-            << " (" << request->image_data().size() << " bytes)" << std::endl;
+        try {
+            std::cout << "Received request id=" << request->id()
+                << " (" << request->image_data().size() << " bytes)"
+                << std::endl;
 
-        reply->set_id(request->id());
-        reply->set_text("Dummy OCR reply");
-        reply->set_processing_time_ms(0);
-        return Status::OK;
+            // Call your real OCR helper
+            OcrResult result = run_ocr_on_bytes(request->image_data());
+
+            reply->set_id(request->id());
+            reply->set_text(result.text);
+            reply->set_processing_time_ms(result.processingTimeMs);
+            return Status::OK;
+        }
+        catch (const std::exception& ex) {
+            std::cerr << "OCR error: " << ex.what() << std::endl;
+            return Status(grpc::StatusCode::INTERNAL, ex.what());
+        }
     }
 };
 
