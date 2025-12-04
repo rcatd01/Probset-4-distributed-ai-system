@@ -6,6 +6,7 @@
 #include "ocr_service.grpc.pb.h"
 
 #include "OcrProcessor.h"
+#include "OcrWorkerPool.h"
 
 using grpc::Server;
 using grpc::ServerBuilder;
@@ -18,16 +19,23 @@ using ocr::ImageResponse;
 
 class OCRServiceImpl final : public OCRService::Service {
 public:
+    explicit OCRServiceImpl(std::size_t numThreads)
+        : pool_(numThreads) {
+    }
+
     Status ProcessImage(ServerContext* context,
         const ImageRequest* request,
         ImageResponse* reply) override {
-        try {
-            std::cout << "Received request id=" << request->id()
-                << " (" << request->image_data().size() << " bytes)"
-                << std::endl;
+        std::cout << "Received request id=" << request->id()
+            << " (" << request->image_data().size() << " bytes)"
+            << std::endl;
 
-            // Call your real OCR helper
-            OcrResult result = run_ocr_on_bytes(request->image_data());
+        // Enqueue job into the worker pool
+        std::future<OcrResult> fut = pool_.enqueue(request->id(), request->image_data());
+
+        try {
+            // Wait for OCR result from worker thread
+            OcrResult result = fut.get();
 
             reply->set_id(request->id());
             reply->set_text(result.text);
@@ -35,23 +43,32 @@ public:
             return Status::OK;
         }
         catch (const std::exception& ex) {
-            std::cerr << "OCR error: " << ex.what() << std::endl;
+            std::cerr << "OCR error in worker: " << ex.what() << std::endl;
             return Status(grpc::StatusCode::INTERNAL, ex.what());
         }
     }
+
+private:
+    OcrWorkerPool pool_;
 };
 
+
 void RunServer(const std::string& address) {
-    OCRServiceImpl service;
+    std::size_t numThreads = std::thread::hardware_concurrency();
+    if (numThreads == 0) numThreads = 4;
+
+    OCRServiceImpl service(numThreads);
 
     ServerBuilder builder;
     builder.AddListeningPort(address, grpc::InsecureServerCredentials());
     builder.RegisterService(&service);
 
     std::unique_ptr<Server> server(builder.BuildAndStart());
-    std::cout << "Server listening at: " << address << std::endl;
+    std::cout << "Server listening at: " << address
+        << " with " << numThreads << " worker threads.\n";
     server->Wait();
 }
+
 
 int main() {
     RunServer("0.0.0.0:50051");

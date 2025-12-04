@@ -1,0 +1,75 @@
+#include "OcrWorkerPool.h"
+
+#include <iostream>
+
+OcrWorkerPool::OcrWorkerPool(std::size_t numThreads) {
+    if (numThreads == 0) {
+        numThreads = 1;
+    }
+
+    for (std::size_t i = 0; i < numThreads; ++i) {
+        workers_.emplace_back(&OcrWorkerPool::workerLoop, this, static_cast<int>(i));
+    }
+
+    std::cout << "OcrWorkerPool started with " << numThreads << " threads.\n";
+}
+
+OcrWorkerPool::~OcrWorkerPool() {
+    {
+        std::lock_guard<std::mutex> lock(mutex_);
+        stopping_ = true;
+    }
+    cv_.notify_all();
+
+    for (auto& t : workers_) {
+        if (t.joinable()) t.join();
+    }
+
+    std::cout << "OcrWorkerPool stopped.\n";
+}
+
+std::future<OcrResult> OcrWorkerPool::enqueue(int id, const std::string& imageBytes) {
+    auto job = std::make_shared<OcrJob>();
+    job->id = id;
+    job->imageBytes = imageBytes;
+
+    std::future<OcrResult> fut = job->promise.get_future();
+
+    {
+        std::lock_guard<std::mutex> lock(mutex_);
+        queue_.push(job);
+    }
+    cv_.notify_one();
+
+    return fut;
+}
+
+void OcrWorkerPool::workerLoop(int workerIndex) {
+    while (true) {
+        std::shared_ptr<OcrJob> job;
+
+        {
+            std::unique_lock<std::mutex> lock(mutex_);
+            cv_.wait(lock, [this] {
+                return stopping_ || !queue_.empty();
+                });
+
+            if (stopping_ && queue_.empty()) {
+                return; // exit thread
+            }
+
+            job = queue_.front();
+            queue_.pop();
+        }
+
+        try {
+            // Run OCR on this worker thread
+            OcrResult result = run_ocr_on_bytes(job->imageBytes);
+            job->promise.set_value(std::move(result));
+        }
+        catch (...) {
+            // Propagate any exception back to the caller
+            job->promise.set_exception(std::current_exception());
+        }
+    }
+}
