@@ -67,11 +67,16 @@ private:
 };
 
 int main() {
-    // Change this to any PNG/JPG with text
-    std::string imagePath = "C:\\Users\\Rain\\Downloads\\datasets\\dataset1\\img0001.png";
+    std::string serverAddress;
+    std::string imagePath;
 
-    // For now, server and client run on same machine
-    auto channel = grpc::CreateChannel("localhost:50051",
+    std::cout << "Enter server address (e.g. localhost:50051 or 192.168.1.23:50051): ";
+    std::getline(std::cin, serverAddress);
+
+    std::cout << "Enter image path: ";
+    std::getline(std::cin, imagePath);
+
+    auto channel = grpc::CreateChannel(serverAddress,
         grpc::InsecureChannelCredentials());
 
     OCRClient client(channel);
@@ -87,3 +92,4 @@ int main() {
     std::cin.get();
     return 0;
 }
+
