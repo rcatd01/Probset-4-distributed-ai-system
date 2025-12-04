@@ -1,0 +1,23 @@
+# Visual Studio junk
+.vs/
+*.user
+*.vcxproj.user
+
+# Build output
+Debug/
+Release/
+x64/
+x86/
+*.obj
+*.pch
+*.pdb
+*.log
+*.tlog
+
+# Intermediate files
+ipch/
+*.opendb
+
+# Other
+*.cache
+*.tmp
