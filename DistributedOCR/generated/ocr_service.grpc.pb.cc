@@ -22,7 +22,7 @@
 namespace ocr {
 
 static const char* OCRService_method_names[] = {
-  "/ocr.OCRService/ProcessImage",
+  "/ocr.OCRService/ProcessBatch",
 };
 
 std::unique_ptr< OCRService::Stub> OCRService::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -32,28 +32,28 @@ std::unique_ptr< OCRService::Stub> OCRService::NewStub(const std::shared_ptr< ::
 }
 
 OCRService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options)
-  : channel_(channel), rpcmethod_ProcessImage_(OCRService_method_names[0], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  : channel_(channel), rpcmethod_ProcessBatch_(OCRService_method_names[0], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
-::grpc::Status OCRService::Stub::ProcessImage(::grpc::ClientContext* context, const ::ocr::ImageRequest& request, ::ocr::ImageResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall< ::ocr::ImageRequest, ::ocr::ImageResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_ProcessImage_, context, request, response);
+::grpc::Status OCRService::Stub::ProcessBatch(::grpc::ClientContext* context, const ::ocr::BatchRequest& request, ::ocr::BatchResponse* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::ocr::BatchRequest, ::ocr::BatchResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_ProcessBatch_, context, request, response);
 }
 
-void OCRService::Stub::async::ProcessImage(::grpc::ClientContext* context, const ::ocr::ImageRequest* request, ::ocr::ImageResponse* response, std::function<void(::grpc::Status)> f) {
-  ::grpc::internal::CallbackUnaryCall< ::ocr::ImageRequest, ::ocr::ImageResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_ProcessImage_, context, request, response, std::move(f));
+void OCRService::Stub::async::ProcessBatch(::grpc::ClientContext* context, const ::ocr::BatchRequest* request, ::ocr::BatchResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::ocr::BatchRequest, ::ocr::BatchResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_ProcessBatch_, context, request, response, std::move(f));
 }
 
-void OCRService::Stub::async::ProcessImage(::grpc::ClientContext* context, const ::ocr::ImageRequest* request, ::ocr::ImageResponse* response, ::grpc::ClientUnaryReactor* reactor) {
-  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_ProcessImage_, context, request, response, reactor);
+void OCRService::Stub::async::ProcessBatch(::grpc::ClientContext* context, const ::ocr::BatchRequest* request, ::ocr::BatchResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_ProcessBatch_, context, request, response, reactor);
 }
 
-::grpc::ClientAsyncResponseReader< ::ocr::ImageResponse>* OCRService::Stub::PrepareAsyncProcessImageRaw(::grpc::ClientContext* context, const ::ocr::ImageRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::ocr::ImageResponse, ::ocr::ImageRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_ProcessImage_, context, request);
+::grpc::ClientAsyncResponseReader< ::ocr::BatchResponse>* OCRService::Stub::PrepareAsyncProcessBatchRaw(::grpc::ClientContext* context, const ::ocr::BatchRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::ocr::BatchResponse, ::ocr::BatchRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_ProcessBatch_, context, request);
 }
 
-::grpc::ClientAsyncResponseReader< ::ocr::ImageResponse>* OCRService::Stub::AsyncProcessImageRaw(::grpc::ClientContext* context, const ::ocr::ImageRequest& request, ::grpc::CompletionQueue* cq) {
+::grpc::ClientAsyncResponseReader< ::ocr::BatchResponse>* OCRService::Stub::AsyncProcessBatchRaw(::grpc::ClientContext* context, const ::ocr::BatchRequest& request, ::grpc::CompletionQueue* cq) {
   auto* result =
-    this->PrepareAsyncProcessImageRaw(context, request, cq);
+    this->PrepareAsyncProcessBatchRaw(context, request, cq);
   result->StartCall();
   return result;
 }
@@ -62,19 +62,19 @@ OCRService::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       OCRService_method_names[0],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< OCRService::Service, ::ocr::ImageRequest, ::ocr::ImageResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+      new ::grpc::internal::RpcMethodHandler< OCRService::Service, ::ocr::BatchRequest, ::ocr::BatchResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](OCRService::Service* service,
              ::grpc::ServerContext* ctx,
-             const ::ocr::ImageRequest* req,
-             ::ocr::ImageResponse* resp) {
-               return service->ProcessImage(ctx, req, resp);
+             const ::ocr::BatchRequest* req,
+             ::ocr::BatchResponse* resp) {
+               return service->ProcessBatch(ctx, req, resp);
              }, this)));
 }
 
 OCRService::Service::~Service() {
 }
 
-::grpc::Status OCRService::Service::ProcessImage(::grpc::ServerContext* context, const ::ocr::ImageRequest* request, ::ocr::ImageResponse* response) {
+::grpc::Status OCRService::Service::ProcessBatch(::grpc::ServerContext* context, const ::ocr::BatchRequest* request, ::ocr::BatchResponse* response) {
   (void) context;
   (void) request;
   (void) response;

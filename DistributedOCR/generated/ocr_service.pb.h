@@ -52,12 +52,18 @@ struct TableStruct_ocr_5fservice_2eproto {
 extern const ::google::protobuf::internal::DescriptorTable
     descriptor_table_ocr_5fservice_2eproto;
 namespace ocr {
-class ImageRequest;
-struct ImageRequestDefaultTypeInternal;
-extern ImageRequestDefaultTypeInternal _ImageRequest_default_instance_;
-class ImageResponse;
-struct ImageResponseDefaultTypeInternal;
-extern ImageResponseDefaultTypeInternal _ImageResponse_default_instance_;
+class BatchRequest;
+struct BatchRequestDefaultTypeInternal;
+extern BatchRequestDefaultTypeInternal _BatchRequest_default_instance_;
+class BatchResponse;
+struct BatchResponseDefaultTypeInternal;
+extern BatchResponseDefaultTypeInternal _BatchResponse_default_instance_;
+class BatchResult;
+struct BatchResultDefaultTypeInternal;
+extern BatchResultDefaultTypeInternal _BatchResult_default_instance_;
+class ImageTask;
+struct ImageTaskDefaultTypeInternal;
+extern ImageTaskDefaultTypeInternal _ImageTask_default_instance_;
 }  // namespace ocr
 namespace google {
 namespace protobuf {
@@ -71,31 +77,31 @@ namespace ocr {
 
 // -------------------------------------------------------------------
 
-class ImageResponse final : public ::google::protobuf::Message
-/* @@protoc_insertion_point(class_definition:ocr.ImageResponse) */ {
+class ImageTask final : public ::google::protobuf::Message
+/* @@protoc_insertion_point(class_definition:ocr.ImageTask) */ {
  public:
-  inline ImageResponse() : ImageResponse(nullptr) {}
-  ~ImageResponse() PROTOBUF_FINAL;
+  inline ImageTask() : ImageTask(nullptr) {}
+  ~ImageTask() PROTOBUF_FINAL;
 
 #if defined(PROTOBUF_CUSTOM_VTABLE)
-  void operator delete(ImageResponse* msg, std::destroying_delete_t) {
+  void operator delete(ImageTask* msg, std::destroying_delete_t) {
     SharedDtor(*msg);
-    ::google::protobuf::internal::SizedDelete(msg, sizeof(ImageResponse));
+    ::google::protobuf::internal::SizedDelete(msg, sizeof(ImageTask));
   }
 #endif
 
   template <typename = void>
-  explicit PROTOBUF_CONSTEXPR ImageResponse(
+  explicit PROTOBUF_CONSTEXPR ImageTask(
       ::google::protobuf::internal::ConstantInitialized);
 
-  inline ImageResponse(const ImageResponse& from) : ImageResponse(nullptr, from) {}
-  inline ImageResponse(ImageResponse&& from) noexcept
-      : ImageResponse(nullptr, std::move(from)) {}
-  inline ImageResponse& operator=(const ImageResponse& from) {
+  inline ImageTask(const ImageTask& from) : ImageTask(nullptr, from) {}
+  inline ImageTask(ImageTask&& from) noexcept
+      : ImageTask(nullptr, std::move(from)) {}
+  inline ImageTask& operator=(const ImageTask& from) {
     CopyFrom(from);
     return *this;
   }
-  inline ImageResponse& operator=(ImageResponse&& from) noexcept {
+  inline ImageTask& operator=(ImageTask&& from) noexcept {
     if (this == &from) return *this;
     if (::google::protobuf::internal::CanMoveWithInternalSwap(GetArena(), from.GetArena())) {
       InternalSwap(&from);
@@ -123,16 +129,16 @@ class ImageResponse final : public ::google::protobuf::Message
   static const ::google::protobuf::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const ImageResponse& default_instance() {
+  static const ImageTask& default_instance() {
     return *internal_default_instance();
   }
-  static inline const ImageResponse* internal_default_instance() {
-    return reinterpret_cast<const ImageResponse*>(
-        &_ImageResponse_default_instance_);
+  static inline const ImageTask* internal_default_instance() {
+    return reinterpret_cast<const ImageTask*>(
+        &_ImageTask_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 1;
-  friend void swap(ImageResponse& a, ImageResponse& b) { a.Swap(&b); }
-  inline void Swap(ImageResponse* other) {
+  static constexpr int kIndexInFileMessages = 0;
+  friend void swap(ImageTask& a, ImageTask& b) { a.Swap(&b); }
+  inline void Swap(ImageTask* other) {
     if (other == this) return;
     if (::google::protobuf::internal::CanUseInternalSwap(GetArena(), other->GetArena())) {
       InternalSwap(other);
@@ -140,7 +146,7 @@ class ImageResponse final : public ::google::protobuf::Message
       ::google::protobuf::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(ImageResponse* other) {
+  void UnsafeArenaSwap(ImageTask* other) {
     if (other == this) return;
     ABSL_DCHECK(GetArena() == other->GetArena());
     InternalSwap(other);
@@ -148,13 +154,13 @@ class ImageResponse final : public ::google::protobuf::Message
 
   // implements Message ----------------------------------------------
 
-  ImageResponse* New(::google::protobuf::Arena* arena = nullptr) const {
-    return ::google::protobuf::Message::DefaultConstruct<ImageResponse>(arena);
+  ImageTask* New(::google::protobuf::Arena* arena = nullptr) const {
+    return ::google::protobuf::Message::DefaultConstruct<ImageTask>(arena);
   }
   using ::google::protobuf::Message::CopyFrom;
-  void CopyFrom(const ImageResponse& from);
+  void CopyFrom(const ImageTask& from);
   using ::google::protobuf::Message::MergeFrom;
-  void MergeFrom(const ImageResponse& from) { ImageResponse::MergeImpl(*this, from); }
+  void MergeFrom(const ImageTask& from) { ImageTask::MergeImpl(*this, from); }
 
   private:
   static void MergeImpl(
@@ -191,18 +197,226 @@ class ImageResponse final : public ::google::protobuf::Message
   private:
   void SharedCtor(::google::protobuf::Arena* arena);
   static void SharedDtor(MessageLite& self);
-  void InternalSwap(ImageResponse* other);
+  void InternalSwap(ImageTask* other);
  private:
   template <typename T>
   friend ::absl::string_view(
       ::google::protobuf::internal::GetAnyMessageName)();
-  static ::absl::string_view FullMessageName() { return "ocr.ImageResponse"; }
+  static ::absl::string_view FullMessageName() { return "ocr.ImageTask"; }
 
  protected:
-  explicit ImageResponse(::google::protobuf::Arena* arena);
-  ImageResponse(::google::protobuf::Arena* arena, const ImageResponse& from);
-  ImageResponse(::google::protobuf::Arena* arena, ImageResponse&& from) noexcept
-      : ImageResponse(arena) {
+  explicit ImageTask(::google::protobuf::Arena* arena);
+  ImageTask(::google::protobuf::Arena* arena, const ImageTask& from);
+  ImageTask(::google::protobuf::Arena* arena, ImageTask&& from) noexcept
+      : ImageTask(arena) {
+    *this = ::std::move(from);
+  }
+  const ::google::protobuf::internal::ClassData* GetClassData() const PROTOBUF_FINAL;
+  static void* PlacementNew_(const void*, void* mem,
+                             ::google::protobuf::Arena* arena);
+  static constexpr auto InternalNewImpl_();
+  static const ::google::protobuf::internal::ClassDataFull _class_data_;
+
+ public:
+  ::google::protobuf::Metadata GetMetadata() const;
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+  enum : int {
+    kImageDataFieldNumber = 2,
+    kIdFieldNumber = 1,
+  };
+  // bytes image_data = 2;
+  void clear_image_data() ;
+  const std::string& image_data() const;
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_image_data(Arg_&& arg, Args_... args);
+  std::string* mutable_image_data();
+  PROTOBUF_NODISCARD std::string* release_image_data();
+  void set_allocated_image_data(std::string* value);
+
+  private:
+  const std::string& _internal_image_data() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_image_data(
+      const std::string& value);
+  std::string* _internal_mutable_image_data();
+
+  public:
+  // int32 id = 1;
+  void clear_id() ;
+  ::int32_t id() const;
+  void set_id(::int32_t value);
+
+  private:
+  ::int32_t _internal_id() const;
+  void _internal_set_id(::int32_t value);
+
+  public:
+  // @@protoc_insertion_point(class_scope:ocr.ImageTask)
+ private:
+  class _Internal;
+  friend class ::google::protobuf::internal::TcParser;
+  static const ::google::protobuf::internal::TcParseTable<
+      1, 2, 0,
+      0, 2>
+      _table_;
+
+  friend class ::google::protobuf::MessageLite;
+  friend class ::google::protobuf::Arena;
+  template <typename T>
+  friend class ::google::protobuf::Arena::InternalHelper;
+  using InternalArenaConstructable_ = void;
+  using DestructorSkippable_ = void;
+  struct Impl_ {
+    inline explicit constexpr Impl_(
+        ::google::protobuf::internal::ConstantInitialized) noexcept;
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena);
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena, const Impl_& from,
+                          const ImageTask& from_msg);
+    ::google::protobuf::internal::ArenaStringPtr image_data_;
+    ::int32_t id_;
+    ::google::protobuf::internal::CachedSize _cached_size_;
+    PROTOBUF_TSAN_DECLARE_MEMBER
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_ocr_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class BatchResult final : public ::google::protobuf::Message
+/* @@protoc_insertion_point(class_definition:ocr.BatchResult) */ {
+ public:
+  inline BatchResult() : BatchResult(nullptr) {}
+  ~BatchResult() PROTOBUF_FINAL;
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+  void operator delete(BatchResult* msg, std::destroying_delete_t) {
+    SharedDtor(*msg);
+    ::google::protobuf::internal::SizedDelete(msg, sizeof(BatchResult));
+  }
+#endif
+
+  template <typename = void>
+  explicit PROTOBUF_CONSTEXPR BatchResult(
+      ::google::protobuf::internal::ConstantInitialized);
+
+  inline BatchResult(const BatchResult& from) : BatchResult(nullptr, from) {}
+  inline BatchResult(BatchResult&& from) noexcept
+      : BatchResult(nullptr, std::move(from)) {}
+  inline BatchResult& operator=(const BatchResult& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline BatchResult& operator=(BatchResult&& from) noexcept {
+    if (this == &from) return *this;
+    if (::google::protobuf::internal::CanMoveWithInternalSwap(GetArena(), from.GetArena())) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::google::protobuf::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::google::protobuf::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const BatchResult& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const BatchResult* internal_default_instance() {
+    return reinterpret_cast<const BatchResult*>(
+        &_BatchResult_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages = 2;
+  friend void swap(BatchResult& a, BatchResult& b) { a.Swap(&b); }
+  inline void Swap(BatchResult* other) {
+    if (other == this) return;
+    if (::google::protobuf::internal::CanUseInternalSwap(GetArena(), other->GetArena())) {
+      InternalSwap(other);
+    } else {
+      ::google::protobuf::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(BatchResult* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  BatchResult* New(::google::protobuf::Arena* arena = nullptr) const {
+    return ::google::protobuf::Message::DefaultConstruct<BatchResult>(arena);
+  }
+  using ::google::protobuf::Message::CopyFrom;
+  void CopyFrom(const BatchResult& from);
+  using ::google::protobuf::Message::MergeFrom;
+  void MergeFrom(const BatchResult& from) { BatchResult::MergeImpl(*this, from); }
+
+  private:
+  static void MergeImpl(
+      ::google::protobuf::MessageLite& to_msg,
+      const ::google::protobuf::MessageLite& from_msg);
+
+  public:
+  bool IsInitialized() const {
+    return true;
+  }
+  ABSL_ATTRIBUTE_REINITIALIZES void Clear() PROTOBUF_FINAL;
+  #if defined(PROTOBUF_CUSTOM_VTABLE)
+  private:
+  static ::size_t ByteSizeLong(const ::google::protobuf::MessageLite& msg);
+  static ::uint8_t* _InternalSerialize(
+      const MessageLite& msg, ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream);
+
+  public:
+  ::size_t ByteSizeLong() const { return ByteSizeLong(*this); }
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+    return _InternalSerialize(*this, target, stream);
+  }
+  #else   // PROTOBUF_CUSTOM_VTABLE
+  ::size_t ByteSizeLong() const final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
+  #endif  // PROTOBUF_CUSTOM_VTABLE
+  int GetCachedSize() const { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::google::protobuf::Arena* arena);
+  static void SharedDtor(MessageLite& self);
+  void InternalSwap(BatchResult* other);
+ private:
+  template <typename T>
+  friend ::absl::string_view(
+      ::google::protobuf::internal::GetAnyMessageName)();
+  static ::absl::string_view FullMessageName() { return "ocr.BatchResult"; }
+
+ protected:
+  explicit BatchResult(::google::protobuf::Arena* arena);
+  BatchResult(::google::protobuf::Arena* arena, const BatchResult& from);
+  BatchResult(::google::protobuf::Arena* arena, BatchResult&& from) noexcept
+      : BatchResult(arena) {
     *this = ::std::move(from);
   }
   const ::google::protobuf::internal::ClassData* GetClassData() const PROTOBUF_FINAL;
@@ -257,13 +471,13 @@ class ImageResponse final : public ::google::protobuf::Message
   void _internal_set_id(::int32_t value);
 
   public:
-  // @@protoc_insertion_point(class_scope:ocr.ImageResponse)
+  // @@protoc_insertion_point(class_scope:ocr.BatchResult)
  private:
   class _Internal;
   friend class ::google::protobuf::internal::TcParser;
   static const ::google::protobuf::internal::TcParseTable<
       2, 3, 0,
-      30, 2>
+      28, 2>
       _table_;
 
   friend class ::google::protobuf::MessageLite;
@@ -279,7 +493,7 @@ class ImageResponse final : public ::google::protobuf::Message
                           ::google::protobuf::Arena* arena);
     inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
                           ::google::protobuf::Arena* arena, const Impl_& from,
-                          const ImageResponse& from_msg);
+                          const BatchResult& from_msg);
     ::google::protobuf::internal::ArenaStringPtr text_;
     ::int64_t processing_time_ms_;
     ::int32_t id_;
@@ -291,31 +505,31 @@ class ImageResponse final : public ::google::protobuf::Message
 };
 // -------------------------------------------------------------------
 
-class ImageRequest final : public ::google::protobuf::Message
-/* @@protoc_insertion_point(class_definition:ocr.ImageRequest) */ {
+class BatchResponse final : public ::google::protobuf::Message
+/* @@protoc_insertion_point(class_definition:ocr.BatchResponse) */ {
  public:
-  inline ImageRequest() : ImageRequest(nullptr) {}
-  ~ImageRequest() PROTOBUF_FINAL;
+  inline BatchResponse() : BatchResponse(nullptr) {}
+  ~BatchResponse() PROTOBUF_FINAL;
 
 #if defined(PROTOBUF_CUSTOM_VTABLE)
-  void operator delete(ImageRequest* msg, std::destroying_delete_t) {
+  void operator delete(BatchResponse* msg, std::destroying_delete_t) {
     SharedDtor(*msg);
-    ::google::protobuf::internal::SizedDelete(msg, sizeof(ImageRequest));
+    ::google::protobuf::internal::SizedDelete(msg, sizeof(BatchResponse));
   }
 #endif
 
   template <typename = void>
-  explicit PROTOBUF_CONSTEXPR ImageRequest(
+  explicit PROTOBUF_CONSTEXPR BatchResponse(
       ::google::protobuf::internal::ConstantInitialized);
 
-  inline ImageRequest(const ImageRequest& from) : ImageRequest(nullptr, from) {}
-  inline ImageRequest(ImageRequest&& from) noexcept
-      : ImageRequest(nullptr, std::move(from)) {}
-  inline ImageRequest& operator=(const ImageRequest& from) {
+  inline BatchResponse(const BatchResponse& from) : BatchResponse(nullptr, from) {}
+  inline BatchResponse(BatchResponse&& from) noexcept
+      : BatchResponse(nullptr, std::move(from)) {}
+  inline BatchResponse& operator=(const BatchResponse& from) {
     CopyFrom(from);
     return *this;
   }
-  inline ImageRequest& operator=(ImageRequest&& from) noexcept {
+  inline BatchResponse& operator=(BatchResponse&& from) noexcept {
     if (this == &from) return *this;
     if (::google::protobuf::internal::CanMoveWithInternalSwap(GetArena(), from.GetArena())) {
       InternalSwap(&from);
@@ -343,16 +557,16 @@ class ImageRequest final : public ::google::protobuf::Message
   static const ::google::protobuf::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const ImageRequest& default_instance() {
+  static const BatchResponse& default_instance() {
     return *internal_default_instance();
   }
-  static inline const ImageRequest* internal_default_instance() {
-    return reinterpret_cast<const ImageRequest*>(
-        &_ImageRequest_default_instance_);
+  static inline const BatchResponse* internal_default_instance() {
+    return reinterpret_cast<const BatchResponse*>(
+        &_BatchResponse_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 0;
-  friend void swap(ImageRequest& a, ImageRequest& b) { a.Swap(&b); }
-  inline void Swap(ImageRequest* other) {
+  static constexpr int kIndexInFileMessages = 3;
+  friend void swap(BatchResponse& a, BatchResponse& b) { a.Swap(&b); }
+  inline void Swap(BatchResponse* other) {
     if (other == this) return;
     if (::google::protobuf::internal::CanUseInternalSwap(GetArena(), other->GetArena())) {
       InternalSwap(other);
@@ -360,7 +574,7 @@ class ImageRequest final : public ::google::protobuf::Message
       ::google::protobuf::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(ImageRequest* other) {
+  void UnsafeArenaSwap(BatchResponse* other) {
     if (other == this) return;
     ABSL_DCHECK(GetArena() == other->GetArena());
     InternalSwap(other);
@@ -368,13 +582,13 @@ class ImageRequest final : public ::google::protobuf::Message
 
   // implements Message ----------------------------------------------
 
-  ImageRequest* New(::google::protobuf::Arena* arena = nullptr) const {
-    return ::google::protobuf::Message::DefaultConstruct<ImageRequest>(arena);
+  BatchResponse* New(::google::protobuf::Arena* arena = nullptr) const {
+    return ::google::protobuf::Message::DefaultConstruct<BatchResponse>(arena);
   }
   using ::google::protobuf::Message::CopyFrom;
-  void CopyFrom(const ImageRequest& from);
+  void CopyFrom(const BatchResponse& from);
   using ::google::protobuf::Message::MergeFrom;
-  void MergeFrom(const ImageRequest& from) { ImageRequest::MergeImpl(*this, from); }
+  void MergeFrom(const BatchResponse& from) { BatchResponse::MergeImpl(*this, from); }
 
   private:
   static void MergeImpl(
@@ -411,18 +625,18 @@ class ImageRequest final : public ::google::protobuf::Message
   private:
   void SharedCtor(::google::protobuf::Arena* arena);
   static void SharedDtor(MessageLite& self);
-  void InternalSwap(ImageRequest* other);
+  void InternalSwap(BatchResponse* other);
  private:
   template <typename T>
   friend ::absl::string_view(
       ::google::protobuf::internal::GetAnyMessageName)();
-  static ::absl::string_view FullMessageName() { return "ocr.ImageRequest"; }
+  static ::absl::string_view FullMessageName() { return "ocr.BatchResponse"; }
 
  protected:
-  explicit ImageRequest(::google::protobuf::Arena* arena);
-  ImageRequest(::google::protobuf::Arena* arena, const ImageRequest& from);
-  ImageRequest(::google::protobuf::Arena* arena, ImageRequest&& from) noexcept
-      : ImageRequest(arena) {
+  explicit BatchResponse(::google::protobuf::Arena* arena);
+  BatchResponse(::google::protobuf::Arena* arena, const BatchResponse& from);
+  BatchResponse(::google::protobuf::Arena* arena, BatchResponse&& from) noexcept
+      : BatchResponse(arena) {
     *this = ::std::move(from);
   }
   const ::google::protobuf::internal::ClassData* GetClassData() const PROTOBUF_FINAL;
@@ -437,41 +651,31 @@ class ImageRequest final : public ::google::protobuf::Message
 
   // accessors -------------------------------------------------------
   enum : int {
-    kImageDataFieldNumber = 2,
-    kIdFieldNumber = 1,
+    kResultsFieldNumber = 1,
   };
-  // bytes image_data = 2;
-  void clear_image_data() ;
-  const std::string& image_data() const;
-  template <typename Arg_ = const std::string&, typename... Args_>
-  void set_image_data(Arg_&& arg, Args_... args);
-  std::string* mutable_image_data();
-  PROTOBUF_NODISCARD std::string* release_image_data();
-  void set_allocated_image_data(std::string* value);
-
+  // repeated .ocr.BatchResult results = 1;
+  int results_size() const;
   private:
-  const std::string& _internal_image_data() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_image_data(
-      const std::string& value);
-  std::string* _internal_mutable_image_data();
+  int _internal_results_size() const;
 
   public:
-  // int32 id = 1;
-  void clear_id() ;
-  ::int32_t id() const;
-  void set_id(::int32_t value);
+  void clear_results() ;
+  ::ocr::BatchResult* mutable_results(int index);
+  ::google::protobuf::RepeatedPtrField<::ocr::BatchResult>* mutable_results();
 
   private:
-  ::int32_t _internal_id() const;
-  void _internal_set_id(::int32_t value);
-
+  const ::google::protobuf::RepeatedPtrField<::ocr::BatchResult>& _internal_results() const;
+  ::google::protobuf::RepeatedPtrField<::ocr::BatchResult>* _internal_mutable_results();
   public:
-  // @@protoc_insertion_point(class_scope:ocr.ImageRequest)
+  const ::ocr::BatchResult& results(int index) const;
+  ::ocr::BatchResult* add_results();
+  const ::google::protobuf::RepeatedPtrField<::ocr::BatchResult>& results() const;
+  // @@protoc_insertion_point(class_scope:ocr.BatchResponse)
  private:
   class _Internal;
   friend class ::google::protobuf::internal::TcParser;
   static const ::google::protobuf::internal::TcParseTable<
-      1, 2, 0,
+      0, 1, 1,
       0, 2>
       _table_;
 
@@ -488,9 +692,205 @@ class ImageRequest final : public ::google::protobuf::Message
                           ::google::protobuf::Arena* arena);
     inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
                           ::google::protobuf::Arena* arena, const Impl_& from,
-                          const ImageRequest& from_msg);
-    ::google::protobuf::internal::ArenaStringPtr image_data_;
-    ::int32_t id_;
+                          const BatchResponse& from_msg);
+    ::google::protobuf::RepeatedPtrField< ::ocr::BatchResult > results_;
+    ::google::protobuf::internal::CachedSize _cached_size_;
+    PROTOBUF_TSAN_DECLARE_MEMBER
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_ocr_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class BatchRequest final : public ::google::protobuf::Message
+/* @@protoc_insertion_point(class_definition:ocr.BatchRequest) */ {
+ public:
+  inline BatchRequest() : BatchRequest(nullptr) {}
+  ~BatchRequest() PROTOBUF_FINAL;
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+  void operator delete(BatchRequest* msg, std::destroying_delete_t) {
+    SharedDtor(*msg);
+    ::google::protobuf::internal::SizedDelete(msg, sizeof(BatchRequest));
+  }
+#endif
+
+  template <typename = void>
+  explicit PROTOBUF_CONSTEXPR BatchRequest(
+      ::google::protobuf::internal::ConstantInitialized);
+
+  inline BatchRequest(const BatchRequest& from) : BatchRequest(nullptr, from) {}
+  inline BatchRequest(BatchRequest&& from) noexcept
+      : BatchRequest(nullptr, std::move(from)) {}
+  inline BatchRequest& operator=(const BatchRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline BatchRequest& operator=(BatchRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (::google::protobuf::internal::CanMoveWithInternalSwap(GetArena(), from.GetArena())) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::google::protobuf::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::google::protobuf::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const BatchRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const BatchRequest* internal_default_instance() {
+    return reinterpret_cast<const BatchRequest*>(
+        &_BatchRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages = 1;
+  friend void swap(BatchRequest& a, BatchRequest& b) { a.Swap(&b); }
+  inline void Swap(BatchRequest* other) {
+    if (other == this) return;
+    if (::google::protobuf::internal::CanUseInternalSwap(GetArena(), other->GetArena())) {
+      InternalSwap(other);
+    } else {
+      ::google::protobuf::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(BatchRequest* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  BatchRequest* New(::google::protobuf::Arena* arena = nullptr) const {
+    return ::google::protobuf::Message::DefaultConstruct<BatchRequest>(arena);
+  }
+  using ::google::protobuf::Message::CopyFrom;
+  void CopyFrom(const BatchRequest& from);
+  using ::google::protobuf::Message::MergeFrom;
+  void MergeFrom(const BatchRequest& from) { BatchRequest::MergeImpl(*this, from); }
+
+  private:
+  static void MergeImpl(
+      ::google::protobuf::MessageLite& to_msg,
+      const ::google::protobuf::MessageLite& from_msg);
+
+  public:
+  bool IsInitialized() const {
+    return true;
+  }
+  ABSL_ATTRIBUTE_REINITIALIZES void Clear() PROTOBUF_FINAL;
+  #if defined(PROTOBUF_CUSTOM_VTABLE)
+  private:
+  static ::size_t ByteSizeLong(const ::google::protobuf::MessageLite& msg);
+  static ::uint8_t* _InternalSerialize(
+      const MessageLite& msg, ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream);
+
+  public:
+  ::size_t ByteSizeLong() const { return ByteSizeLong(*this); }
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+    return _InternalSerialize(*this, target, stream);
+  }
+  #else   // PROTOBUF_CUSTOM_VTABLE
+  ::size_t ByteSizeLong() const final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
+  #endif  // PROTOBUF_CUSTOM_VTABLE
+  int GetCachedSize() const { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::google::protobuf::Arena* arena);
+  static void SharedDtor(MessageLite& self);
+  void InternalSwap(BatchRequest* other);
+ private:
+  template <typename T>
+  friend ::absl::string_view(
+      ::google::protobuf::internal::GetAnyMessageName)();
+  static ::absl::string_view FullMessageName() { return "ocr.BatchRequest"; }
+
+ protected:
+  explicit BatchRequest(::google::protobuf::Arena* arena);
+  BatchRequest(::google::protobuf::Arena* arena, const BatchRequest& from);
+  BatchRequest(::google::protobuf::Arena* arena, BatchRequest&& from) noexcept
+      : BatchRequest(arena) {
+    *this = ::std::move(from);
+  }
+  const ::google::protobuf::internal::ClassData* GetClassData() const PROTOBUF_FINAL;
+  static void* PlacementNew_(const void*, void* mem,
+                             ::google::protobuf::Arena* arena);
+  static constexpr auto InternalNewImpl_();
+  static const ::google::protobuf::internal::ClassDataFull _class_data_;
+
+ public:
+  ::google::protobuf::Metadata GetMetadata() const;
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+  enum : int {
+    kTasksFieldNumber = 1,
+  };
+  // repeated .ocr.ImageTask tasks = 1;
+  int tasks_size() const;
+  private:
+  int _internal_tasks_size() const;
+
+  public:
+  void clear_tasks() ;
+  ::ocr::ImageTask* mutable_tasks(int index);
+  ::google::protobuf::RepeatedPtrField<::ocr::ImageTask>* mutable_tasks();
+
+  private:
+  const ::google::protobuf::RepeatedPtrField<::ocr::ImageTask>& _internal_tasks() const;
+  ::google::protobuf::RepeatedPtrField<::ocr::ImageTask>* _internal_mutable_tasks();
+  public:
+  const ::ocr::ImageTask& tasks(int index) const;
+  ::ocr::ImageTask* add_tasks();
+  const ::google::protobuf::RepeatedPtrField<::ocr::ImageTask>& tasks() const;
+  // @@protoc_insertion_point(class_scope:ocr.BatchRequest)
+ private:
+  class _Internal;
+  friend class ::google::protobuf::internal::TcParser;
+  static const ::google::protobuf::internal::TcParseTable<
+      0, 1, 1,
+      0, 2>
+      _table_;
+
+  friend class ::google::protobuf::MessageLite;
+  friend class ::google::protobuf::Arena;
+  template <typename T>
+  friend class ::google::protobuf::Arena::InternalHelper;
+  using InternalArenaConstructable_ = void;
+  using DestructorSkippable_ = void;
+  struct Impl_ {
+    inline explicit constexpr Impl_(
+        ::google::protobuf::internal::ConstantInitialized) noexcept;
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena);
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena, const Impl_& from,
+                          const BatchRequest& from_msg);
+    ::google::protobuf::RepeatedPtrField< ::ocr::ImageTask > tasks_;
     ::google::protobuf::internal::CachedSize _cached_size_;
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
@@ -512,172 +912,278 @@ class ImageRequest final : public ::google::protobuf::Message
 #endif  // __GNUC__
 // -------------------------------------------------------------------
 
-// ImageRequest
+// ImageTask
 
 // int32 id = 1;
-inline void ImageRequest::clear_id() {
+inline void ImageTask::clear_id() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.id_ = 0;
 }
-inline ::int32_t ImageRequest::id() const {
-  // @@protoc_insertion_point(field_get:ocr.ImageRequest.id)
+inline ::int32_t ImageTask::id() const {
+  // @@protoc_insertion_point(field_get:ocr.ImageTask.id)
   return _internal_id();
 }
-inline void ImageRequest::set_id(::int32_t value) {
+inline void ImageTask::set_id(::int32_t value) {
   _internal_set_id(value);
-  // @@protoc_insertion_point(field_set:ocr.ImageRequest.id)
+  // @@protoc_insertion_point(field_set:ocr.ImageTask.id)
 }
-inline ::int32_t ImageRequest::_internal_id() const {
+inline ::int32_t ImageTask::_internal_id() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
   return _impl_.id_;
 }
-inline void ImageRequest::_internal_set_id(::int32_t value) {
+inline void ImageTask::_internal_set_id(::int32_t value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.id_ = value;
 }
 
 // bytes image_data = 2;
-inline void ImageRequest::clear_image_data() {
+inline void ImageTask::clear_image_data() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.image_data_.ClearToEmpty();
 }
-inline const std::string& ImageRequest::image_data() const
+inline const std::string& ImageTask::image_data() const
     ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_get:ocr.ImageRequest.image_data)
+  // @@protoc_insertion_point(field_get:ocr.ImageTask.image_data)
   return _internal_image_data();
 }
 template <typename Arg_, typename... Args_>
-inline PROTOBUF_ALWAYS_INLINE void ImageRequest::set_image_data(Arg_&& arg,
+inline PROTOBUF_ALWAYS_INLINE void ImageTask::set_image_data(Arg_&& arg,
                                                      Args_... args) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.image_data_.SetBytes(static_cast<Arg_&&>(arg), args..., GetArena());
-  // @@protoc_insertion_point(field_set:ocr.ImageRequest.image_data)
+  // @@protoc_insertion_point(field_set:ocr.ImageTask.image_data)
 }
-inline std::string* ImageRequest::mutable_image_data() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+inline std::string* ImageTask::mutable_image_data() ABSL_ATTRIBUTE_LIFETIME_BOUND {
   std::string* _s = _internal_mutable_image_data();
-  // @@protoc_insertion_point(field_mutable:ocr.ImageRequest.image_data)
+  // @@protoc_insertion_point(field_mutable:ocr.ImageTask.image_data)
   return _s;
 }
-inline const std::string& ImageRequest::_internal_image_data() const {
+inline const std::string& ImageTask::_internal_image_data() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
   return _impl_.image_data_.Get();
 }
-inline void ImageRequest::_internal_set_image_data(const std::string& value) {
+inline void ImageTask::_internal_set_image_data(const std::string& value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.image_data_.Set(value, GetArena());
 }
-inline std::string* ImageRequest::_internal_mutable_image_data() {
+inline std::string* ImageTask::_internal_mutable_image_data() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   return _impl_.image_data_.Mutable( GetArena());
 }
-inline std::string* ImageRequest::release_image_data() {
+inline std::string* ImageTask::release_image_data() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  // @@protoc_insertion_point(field_release:ocr.ImageRequest.image_data)
+  // @@protoc_insertion_point(field_release:ocr.ImageTask.image_data)
   return _impl_.image_data_.Release();
 }
-inline void ImageRequest::set_allocated_image_data(std::string* value) {
+inline void ImageTask::set_allocated_image_data(std::string* value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.image_data_.SetAllocated(value, GetArena());
   if (::google::protobuf::internal::DebugHardenForceCopyDefaultString() && _impl_.image_data_.IsDefault()) {
     _impl_.image_data_.Set("", GetArena());
   }
-  // @@protoc_insertion_point(field_set_allocated:ocr.ImageRequest.image_data)
+  // @@protoc_insertion_point(field_set_allocated:ocr.ImageTask.image_data)
 }
 
 // -------------------------------------------------------------------
 
-// ImageResponse
+// BatchRequest
+
+// repeated .ocr.ImageTask tasks = 1;
+inline int BatchRequest::_internal_tasks_size() const {
+  return _internal_tasks().size();
+}
+inline int BatchRequest::tasks_size() const {
+  return _internal_tasks_size();
+}
+inline void BatchRequest::clear_tasks() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.tasks_.Clear();
+}
+inline ::ocr::ImageTask* BatchRequest::mutable_tasks(int index)
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_mutable:ocr.BatchRequest.tasks)
+  return _internal_mutable_tasks()->Mutable(index);
+}
+inline ::google::protobuf::RepeatedPtrField<::ocr::ImageTask>* BatchRequest::mutable_tasks()
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_mutable_list:ocr.BatchRequest.tasks)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  return _internal_mutable_tasks();
+}
+inline const ::ocr::ImageTask& BatchRequest::tasks(int index) const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:ocr.BatchRequest.tasks)
+  return _internal_tasks().Get(index);
+}
+inline ::ocr::ImageTask* BatchRequest::add_tasks() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  ::ocr::ImageTask* _add = _internal_mutable_tasks()->Add();
+  // @@protoc_insertion_point(field_add:ocr.BatchRequest.tasks)
+  return _add;
+}
+inline const ::google::protobuf::RepeatedPtrField<::ocr::ImageTask>& BatchRequest::tasks() const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_list:ocr.BatchRequest.tasks)
+  return _internal_tasks();
+}
+inline const ::google::protobuf::RepeatedPtrField<::ocr::ImageTask>&
+BatchRequest::_internal_tasks() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.tasks_;
+}
+inline ::google::protobuf::RepeatedPtrField<::ocr::ImageTask>*
+BatchRequest::_internal_mutable_tasks() {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return &_impl_.tasks_;
+}
+
+// -------------------------------------------------------------------
+
+// BatchResult
 
 // int32 id = 1;
-inline void ImageResponse::clear_id() {
+inline void BatchResult::clear_id() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.id_ = 0;
 }
-inline ::int32_t ImageResponse::id() const {
-  // @@protoc_insertion_point(field_get:ocr.ImageResponse.id)
+inline ::int32_t BatchResult::id() const {
+  // @@protoc_insertion_point(field_get:ocr.BatchResult.id)
   return _internal_id();
 }
-inline void ImageResponse::set_id(::int32_t value) {
+inline void BatchResult::set_id(::int32_t value) {
   _internal_set_id(value);
-  // @@protoc_insertion_point(field_set:ocr.ImageResponse.id)
+  // @@protoc_insertion_point(field_set:ocr.BatchResult.id)
 }
-inline ::int32_t ImageResponse::_internal_id() const {
+inline ::int32_t BatchResult::_internal_id() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
   return _impl_.id_;
 }
-inline void ImageResponse::_internal_set_id(::int32_t value) {
+inline void BatchResult::_internal_set_id(::int32_t value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.id_ = value;
 }
 
 // string text = 2;
-inline void ImageResponse::clear_text() {
+inline void BatchResult::clear_text() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.text_.ClearToEmpty();
 }
-inline const std::string& ImageResponse::text() const
+inline const std::string& BatchResult::text() const
     ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_get:ocr.ImageResponse.text)
+  // @@protoc_insertion_point(field_get:ocr.BatchResult.text)
   return _internal_text();
 }
 template <typename Arg_, typename... Args_>
-inline PROTOBUF_ALWAYS_INLINE void ImageResponse::set_text(Arg_&& arg,
+inline PROTOBUF_ALWAYS_INLINE void BatchResult::set_text(Arg_&& arg,
                                                      Args_... args) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.text_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
-  // @@protoc_insertion_point(field_set:ocr.ImageResponse.text)
+  // @@protoc_insertion_point(field_set:ocr.BatchResult.text)
 }
-inline std::string* ImageResponse::mutable_text() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+inline std::string* BatchResult::mutable_text() ABSL_ATTRIBUTE_LIFETIME_BOUND {
   std::string* _s = _internal_mutable_text();
-  // @@protoc_insertion_point(field_mutable:ocr.ImageResponse.text)
+  // @@protoc_insertion_point(field_mutable:ocr.BatchResult.text)
   return _s;
 }
-inline const std::string& ImageResponse::_internal_text() const {
+inline const std::string& BatchResult::_internal_text() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
   return _impl_.text_.Get();
 }
-inline void ImageResponse::_internal_set_text(const std::string& value) {
+inline void BatchResult::_internal_set_text(const std::string& value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.text_.Set(value, GetArena());
 }
-inline std::string* ImageResponse::_internal_mutable_text() {
+inline std::string* BatchResult::_internal_mutable_text() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   return _impl_.text_.Mutable( GetArena());
 }
-inline std::string* ImageResponse::release_text() {
+inline std::string* BatchResult::release_text() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  // @@protoc_insertion_point(field_release:ocr.ImageResponse.text)
+  // @@protoc_insertion_point(field_release:ocr.BatchResult.text)
   return _impl_.text_.Release();
 }
-inline void ImageResponse::set_allocated_text(std::string* value) {
+inline void BatchResult::set_allocated_text(std::string* value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.text_.SetAllocated(value, GetArena());
   if (::google::protobuf::internal::DebugHardenForceCopyDefaultString() && _impl_.text_.IsDefault()) {
     _impl_.text_.Set("", GetArena());
   }
-  // @@protoc_insertion_point(field_set_allocated:ocr.ImageResponse.text)
+  // @@protoc_insertion_point(field_set_allocated:ocr.BatchResult.text)
 }
 
 // int64 processing_time_ms = 3;
-inline void ImageResponse::clear_processing_time_ms() {
+inline void BatchResult::clear_processing_time_ms() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.processing_time_ms_ = ::int64_t{0};
 }
-inline ::int64_t ImageResponse::processing_time_ms() const {
-  // @@protoc_insertion_point(field_get:ocr.ImageResponse.processing_time_ms)
+inline ::int64_t BatchResult::processing_time_ms() const {
+  // @@protoc_insertion_point(field_get:ocr.BatchResult.processing_time_ms)
   return _internal_processing_time_ms();
 }
-inline void ImageResponse::set_processing_time_ms(::int64_t value) {
+inline void BatchResult::set_processing_time_ms(::int64_t value) {
   _internal_set_processing_time_ms(value);
-  // @@protoc_insertion_point(field_set:ocr.ImageResponse.processing_time_ms)
+  // @@protoc_insertion_point(field_set:ocr.BatchResult.processing_time_ms)
 }
-inline ::int64_t ImageResponse::_internal_processing_time_ms() const {
+inline ::int64_t BatchResult::_internal_processing_time_ms() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
   return _impl_.processing_time_ms_;
 }
-inline void ImageResponse::_internal_set_processing_time_ms(::int64_t value) {
+inline void BatchResult::_internal_set_processing_time_ms(::int64_t value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.processing_time_ms_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// BatchResponse
+
+// repeated .ocr.BatchResult results = 1;
+inline int BatchResponse::_internal_results_size() const {
+  return _internal_results().size();
+}
+inline int BatchResponse::results_size() const {
+  return _internal_results_size();
+}
+inline void BatchResponse::clear_results() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.results_.Clear();
+}
+inline ::ocr::BatchResult* BatchResponse::mutable_results(int index)
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_mutable:ocr.BatchResponse.results)
+  return _internal_mutable_results()->Mutable(index);
+}
+inline ::google::protobuf::RepeatedPtrField<::ocr::BatchResult>* BatchResponse::mutable_results()
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_mutable_list:ocr.BatchResponse.results)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  return _internal_mutable_results();
+}
+inline const ::ocr::BatchResult& BatchResponse::results(int index) const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:ocr.BatchResponse.results)
+  return _internal_results().Get(index);
+}
+inline ::ocr::BatchResult* BatchResponse::add_results() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  ::ocr::BatchResult* _add = _internal_mutable_results()->Add();
+  // @@protoc_insertion_point(field_add:ocr.BatchResponse.results)
+  return _add;
+}
+inline const ::google::protobuf::RepeatedPtrField<::ocr::BatchResult>& BatchResponse::results() const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_list:ocr.BatchResponse.results)
+  return _internal_results();
+}
+inline const ::google::protobuf::RepeatedPtrField<::ocr::BatchResult>&
+BatchResponse::_internal_results() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.results_;
+}
+inline ::google::protobuf::RepeatedPtrField<::ocr::BatchResult>*
+BatchResponse::_internal_mutable_results() {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return &_impl_.results_;
 }
 
 #ifdef __GNUC__

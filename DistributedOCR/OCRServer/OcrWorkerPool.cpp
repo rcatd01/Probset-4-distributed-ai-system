@@ -1,17 +1,20 @@
 #include "OcrWorkerPool.h"
 
 #include <iostream>
+#include <stdexcept>
 
-OcrWorkerPool::OcrWorkerPool(std::size_t numThreads) {
-    if (numThreads == 0) {
-        numThreads = 1;
-    }
+
+OcrWorkerPool::OcrWorkerPool(std::size_t numThreads, std::size_t maxQueueSize)
+    : maxQueueSize_(maxQueueSize) {
+    if (numThreads == 0) numThreads = 1;
+    if (maxQueueSize_ == 0) maxQueueSize_ = 100; // sensible default
 
     for (std::size_t i = 0; i < numThreads; ++i) {
         workers_.emplace_back(&OcrWorkerPool::workerLoop, this, static_cast<int>(i));
     }
 
-    std::cout << "OcrWorkerPool started with " << numThreads << " threads.\n";
+    std::cout << "OcrWorkerPool started with " << numThreads
+        << " threads, maxQueueSize=" << maxQueueSize_ << ".\n";
 }
 
 OcrWorkerPool::~OcrWorkerPool() {
@@ -37,6 +40,9 @@ std::future<OcrResult> OcrWorkerPool::enqueue(int id, const std::string& imageBy
 
     {
         std::lock_guard<std::mutex> lock(mutex_);
+        if (queue_.size() >= maxQueueSize_) {
+            throw std::runtime_error("Server overloaded: job queue is full");
+        }
         queue_.push(job);
     }
     cv_.notify_one();

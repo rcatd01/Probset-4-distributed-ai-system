@@ -15,14 +15,22 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ClientMain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\generated\ocr_service.grpc.pb.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\generated\ocr_service.pb.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ClientMain.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\generated\ocr_service.grpc.pb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\generated\ocr_service.pb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

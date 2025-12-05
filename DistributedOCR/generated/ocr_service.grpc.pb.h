@@ -36,41 +36,41 @@ class OCRService final {
   class StubInterface {
    public:
     virtual ~StubInterface() {}
-    virtual ::grpc::Status ProcessImage(::grpc::ClientContext* context, const ::ocr::ImageRequest& request, ::ocr::ImageResponse* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::ocr::ImageResponse>> AsyncProcessImage(::grpc::ClientContext* context, const ::ocr::ImageRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::ocr::ImageResponse>>(AsyncProcessImageRaw(context, request, cq));
+    virtual ::grpc::Status ProcessBatch(::grpc::ClientContext* context, const ::ocr::BatchRequest& request, ::ocr::BatchResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::ocr::BatchResponse>> AsyncProcessBatch(::grpc::ClientContext* context, const ::ocr::BatchRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::ocr::BatchResponse>>(AsyncProcessBatchRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::ocr::ImageResponse>> PrepareAsyncProcessImage(::grpc::ClientContext* context, const ::ocr::ImageRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::ocr::ImageResponse>>(PrepareAsyncProcessImageRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::ocr::BatchResponse>> PrepareAsyncProcessBatch(::grpc::ClientContext* context, const ::ocr::BatchRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::ocr::BatchResponse>>(PrepareAsyncProcessBatchRaw(context, request, cq));
     }
     class async_interface {
      public:
       virtual ~async_interface() {}
-      virtual void ProcessImage(::grpc::ClientContext* context, const ::ocr::ImageRequest* request, ::ocr::ImageResponse* response, std::function<void(::grpc::Status)>) = 0;
-      virtual void ProcessImage(::grpc::ClientContext* context, const ::ocr::ImageRequest* request, ::ocr::ImageResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void ProcessBatch(::grpc::ClientContext* context, const ::ocr::BatchRequest* request, ::ocr::BatchResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void ProcessBatch(::grpc::ClientContext* context, const ::ocr::BatchRequest* request, ::ocr::BatchResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
     };
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
     class async_interface* experimental_async() { return async(); }
    private:
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::ocr::ImageResponse>* AsyncProcessImageRaw(::grpc::ClientContext* context, const ::ocr::ImageRequest& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::ocr::ImageResponse>* PrepareAsyncProcessImageRaw(::grpc::ClientContext* context, const ::ocr::ImageRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::ocr::BatchResponse>* AsyncProcessBatchRaw(::grpc::ClientContext* context, const ::ocr::BatchRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::ocr::BatchResponse>* PrepareAsyncProcessBatchRaw(::grpc::ClientContext* context, const ::ocr::BatchRequest& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
     Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
-    ::grpc::Status ProcessImage(::grpc::ClientContext* context, const ::ocr::ImageRequest& request, ::ocr::ImageResponse* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::ocr::ImageResponse>> AsyncProcessImage(::grpc::ClientContext* context, const ::ocr::ImageRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::ocr::ImageResponse>>(AsyncProcessImageRaw(context, request, cq));
+    ::grpc::Status ProcessBatch(::grpc::ClientContext* context, const ::ocr::BatchRequest& request, ::ocr::BatchResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::ocr::BatchResponse>> AsyncProcessBatch(::grpc::ClientContext* context, const ::ocr::BatchRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::ocr::BatchResponse>>(AsyncProcessBatchRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::ocr::ImageResponse>> PrepareAsyncProcessImage(::grpc::ClientContext* context, const ::ocr::ImageRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::ocr::ImageResponse>>(PrepareAsyncProcessImageRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::ocr::BatchResponse>> PrepareAsyncProcessBatch(::grpc::ClientContext* context, const ::ocr::BatchRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::ocr::BatchResponse>>(PrepareAsyncProcessBatchRaw(context, request, cq));
     }
     class async final :
       public StubInterface::async_interface {
      public:
-      void ProcessImage(::grpc::ClientContext* context, const ::ocr::ImageRequest* request, ::ocr::ImageResponse* response, std::function<void(::grpc::Status)>) override;
-      void ProcessImage(::grpc::ClientContext* context, const ::ocr::ImageRequest* request, ::ocr::ImageResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void ProcessBatch(::grpc::ClientContext* context, const ::ocr::BatchRequest* request, ::ocr::BatchResponse* response, std::function<void(::grpc::Status)>) override;
+      void ProcessBatch(::grpc::ClientContext* context, const ::ocr::BatchRequest* request, ::ocr::BatchResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
      private:
       friend class Stub;
       explicit async(Stub* stub): stub_(stub) { }
@@ -82,9 +82,9 @@ class OCRService final {
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
     class async async_stub_{this};
-    ::grpc::ClientAsyncResponseReader< ::ocr::ImageResponse>* AsyncProcessImageRaw(::grpc::ClientContext* context, const ::ocr::ImageRequest& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::ocr::ImageResponse>* PrepareAsyncProcessImageRaw(::grpc::ClientContext* context, const ::ocr::ImageRequest& request, ::grpc::CompletionQueue* cq) override;
-    const ::grpc::internal::RpcMethod rpcmethod_ProcessImage_;
+    ::grpc::ClientAsyncResponseReader< ::ocr::BatchResponse>* AsyncProcessBatchRaw(::grpc::ClientContext* context, const ::ocr::BatchRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::ocr::BatchResponse>* PrepareAsyncProcessBatchRaw(::grpc::ClientContext* context, const ::ocr::BatchRequest& request, ::grpc::CompletionQueue* cq) override;
+    const ::grpc::internal::RpcMethod rpcmethod_ProcessBatch_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -92,147 +92,147 @@ class OCRService final {
    public:
     Service();
     virtual ~Service();
-    virtual ::grpc::Status ProcessImage(::grpc::ServerContext* context, const ::ocr::ImageRequest* request, ::ocr::ImageResponse* response);
+    virtual ::grpc::Status ProcessBatch(::grpc::ServerContext* context, const ::ocr::BatchRequest* request, ::ocr::BatchResponse* response);
   };
   template <class BaseClass>
-  class WithAsyncMethod_ProcessImage : public BaseClass {
+  class WithAsyncMethod_ProcessBatch : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithAsyncMethod_ProcessImage() {
+    WithAsyncMethod_ProcessBatch() {
       ::grpc::Service::MarkMethodAsync(0);
     }
-    ~WithAsyncMethod_ProcessImage() override {
+    ~WithAsyncMethod_ProcessBatch() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ProcessImage(::grpc::ServerContext* /*context*/, const ::ocr::ImageRequest* /*request*/, ::ocr::ImageResponse* /*response*/) override {
+    ::grpc::Status ProcessBatch(::grpc::ServerContext* /*context*/, const ::ocr::BatchRequest* /*request*/, ::ocr::BatchResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestProcessImage(::grpc::ServerContext* context, ::ocr::ImageRequest* request, ::grpc::ServerAsyncResponseWriter< ::ocr::ImageResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestProcessBatch(::grpc::ServerContext* context, ::ocr::BatchRequest* request, ::grpc::ServerAsyncResponseWriter< ::ocr::BatchResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_ProcessImage<Service > AsyncService;
+  typedef WithAsyncMethod_ProcessBatch<Service > AsyncService;
   template <class BaseClass>
-  class WithCallbackMethod_ProcessImage : public BaseClass {
+  class WithCallbackMethod_ProcessBatch : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithCallbackMethod_ProcessImage() {
+    WithCallbackMethod_ProcessBatch() {
       ::grpc::Service::MarkMethodCallback(0,
-          new ::grpc::internal::CallbackUnaryHandler< ::ocr::ImageRequest, ::ocr::ImageResponse>(
+          new ::grpc::internal::CallbackUnaryHandler< ::ocr::BatchRequest, ::ocr::BatchResponse>(
             [this](
-                   ::grpc::CallbackServerContext* context, const ::ocr::ImageRequest* request, ::ocr::ImageResponse* response) { return this->ProcessImage(context, request, response); }));}
-    void SetMessageAllocatorFor_ProcessImage(
-        ::grpc::MessageAllocator< ::ocr::ImageRequest, ::ocr::ImageResponse>* allocator) {
+                   ::grpc::CallbackServerContext* context, const ::ocr::BatchRequest* request, ::ocr::BatchResponse* response) { return this->ProcessBatch(context, request, response); }));}
+    void SetMessageAllocatorFor_ProcessBatch(
+        ::grpc::MessageAllocator< ::ocr::BatchRequest, ::ocr::BatchResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::ocr::ImageRequest, ::ocr::ImageResponse>*>(handler)
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::ocr::BatchRequest, ::ocr::BatchResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~WithCallbackMethod_ProcessImage() override {
+    ~WithCallbackMethod_ProcessBatch() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ProcessImage(::grpc::ServerContext* /*context*/, const ::ocr::ImageRequest* /*request*/, ::ocr::ImageResponse* /*response*/) override {
+    ::grpc::Status ProcessBatch(::grpc::ServerContext* /*context*/, const ::ocr::BatchRequest* /*request*/, ::ocr::BatchResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::ServerUnaryReactor* ProcessImage(
-      ::grpc::CallbackServerContext* /*context*/, const ::ocr::ImageRequest* /*request*/, ::ocr::ImageResponse* /*response*/)  { return nullptr; }
+    virtual ::grpc::ServerUnaryReactor* ProcessBatch(
+      ::grpc::CallbackServerContext* /*context*/, const ::ocr::BatchRequest* /*request*/, ::ocr::BatchResponse* /*response*/)  { return nullptr; }
   };
-  typedef WithCallbackMethod_ProcessImage<Service > CallbackService;
+  typedef WithCallbackMethod_ProcessBatch<Service > CallbackService;
   typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
-  class WithGenericMethod_ProcessImage : public BaseClass {
+  class WithGenericMethod_ProcessBatch : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithGenericMethod_ProcessImage() {
+    WithGenericMethod_ProcessBatch() {
       ::grpc::Service::MarkMethodGeneric(0);
     }
-    ~WithGenericMethod_ProcessImage() override {
+    ~WithGenericMethod_ProcessBatch() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ProcessImage(::grpc::ServerContext* /*context*/, const ::ocr::ImageRequest* /*request*/, ::ocr::ImageResponse* /*response*/) override {
+    ::grpc::Status ProcessBatch(::grpc::ServerContext* /*context*/, const ::ocr::BatchRequest* /*request*/, ::ocr::BatchResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
   };
   template <class BaseClass>
-  class WithRawMethod_ProcessImage : public BaseClass {
+  class WithRawMethod_ProcessBatch : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithRawMethod_ProcessImage() {
+    WithRawMethod_ProcessBatch() {
       ::grpc::Service::MarkMethodRaw(0);
     }
-    ~WithRawMethod_ProcessImage() override {
+    ~WithRawMethod_ProcessBatch() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ProcessImage(::grpc::ServerContext* /*context*/, const ::ocr::ImageRequest* /*request*/, ::ocr::ImageResponse* /*response*/) override {
+    ::grpc::Status ProcessBatch(::grpc::ServerContext* /*context*/, const ::ocr::BatchRequest* /*request*/, ::ocr::BatchResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestProcessImage(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestProcessBatch(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
-  class WithRawCallbackMethod_ProcessImage : public BaseClass {
+  class WithRawCallbackMethod_ProcessBatch : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithRawCallbackMethod_ProcessImage() {
+    WithRawCallbackMethod_ProcessBatch() {
       ::grpc::Service::MarkMethodRawCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ProcessImage(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ProcessBatch(context, request, response); }));
     }
-    ~WithRawCallbackMethod_ProcessImage() override {
+    ~WithRawCallbackMethod_ProcessBatch() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ProcessImage(::grpc::ServerContext* /*context*/, const ::ocr::ImageRequest* /*request*/, ::ocr::ImageResponse* /*response*/) override {
+    ::grpc::Status ProcessBatch(::grpc::ServerContext* /*context*/, const ::ocr::BatchRequest* /*request*/, ::ocr::BatchResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::ServerUnaryReactor* ProcessImage(
+    virtual ::grpc::ServerUnaryReactor* ProcessBatch(
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class WithStreamedUnaryMethod_ProcessImage : public BaseClass {
+  class WithStreamedUnaryMethod_ProcessBatch : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithStreamedUnaryMethod_ProcessImage() {
+    WithStreamedUnaryMethod_ProcessBatch() {
       ::grpc::Service::MarkMethodStreamed(0,
         new ::grpc::internal::StreamedUnaryHandler<
-          ::ocr::ImageRequest, ::ocr::ImageResponse>(
+          ::ocr::BatchRequest, ::ocr::BatchResponse>(
             [this](::grpc::ServerContext* context,
                    ::grpc::ServerUnaryStreamer<
-                     ::ocr::ImageRequest, ::ocr::ImageResponse>* streamer) {
-                       return this->StreamedProcessImage(context,
+                     ::ocr::BatchRequest, ::ocr::BatchResponse>* streamer) {
+                       return this->StreamedProcessBatch(context,
                          streamer);
                   }));
     }
-    ~WithStreamedUnaryMethod_ProcessImage() override {
+    ~WithStreamedUnaryMethod_ProcessBatch() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status ProcessImage(::grpc::ServerContext* /*context*/, const ::ocr::ImageRequest* /*request*/, ::ocr::ImageResponse* /*response*/) override {
+    ::grpc::Status ProcessBatch(::grpc::ServerContext* /*context*/, const ::ocr::BatchRequest* /*request*/, ::ocr::BatchResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with streamed unary
-    virtual ::grpc::Status StreamedProcessImage(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::ocr::ImageRequest,::ocr::ImageResponse>* server_unary_streamer) = 0;
+    virtual ::grpc::Status StreamedProcessBatch(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::ocr::BatchRequest,::ocr::BatchResponse>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_ProcessImage<Service > StreamedUnaryService;
+  typedef WithStreamedUnaryMethod_ProcessBatch<Service > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_ProcessImage<Service > StreamedService;
+  typedef WithStreamedUnaryMethod_ProcessBatch<Service > StreamedService;
 };
 
 }  // namespace ocr

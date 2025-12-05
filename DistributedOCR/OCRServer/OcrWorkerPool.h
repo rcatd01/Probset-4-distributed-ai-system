@@ -17,7 +17,7 @@ struct OcrJob {
 
 class OcrWorkerPool {
 public:
-    explicit OcrWorkerPool(std::size_t numThreads);
+    OcrWorkerPool(std::size_t numThreads, std::size_t maxQueueSize);
     ~OcrWorkerPool();
 
     std::future<OcrResult> enqueue(int id, const std::string& imageBytes);
@@ -30,4 +30,6 @@ private:
     std::mutex mutex_;
     std::condition_variable cv_;
     bool stopping_ = false;
+
+    std::size_t maxQueueSize_ = 0;
 };
