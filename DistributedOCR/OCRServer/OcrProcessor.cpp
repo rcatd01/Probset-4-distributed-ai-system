@@ -25,7 +25,7 @@ OcrResult run_ocr_on_bytes(const std::string& imageBytes)
     tesseract::TessBaseAPI tess;
     const char* lang = "eng";
 
-    // CHANGE TESSERACT FILE HER (where eng.traineddata is)
+    // CHANGE TESSERACT FILE PATH HERE (where eng.traineddata is)
     if (tess.Init("C:/Users/Rain/AppData/Local/Programs/Tesseract-OCR/tessdata", "eng") != 0) {
         throw std::runtime_error("Could not initialize Tesseract");
     }
