@@ -24,12 +24,24 @@
     <ClCompile Include="..\generated\ocr_service.pb.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GrpcOcrClient.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MainWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\generated\ocr_service.grpc.pb.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\generated\ocr_service.pb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GrpcOcrClient.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MainWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

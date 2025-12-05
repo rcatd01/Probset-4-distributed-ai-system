@@ -110,12 +110,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)generated;$(SolutionDir)proto</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)generated;$(SolutionDir)proto;C:\Users\Rain\vcpkg\installed\x64-windows\include;C:\Users\Rain\vcpkg\installed\x64-windows\include\qt5</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\Users\Rain\vcpkg\installed\x64-windows\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -126,22 +128,28 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)generated;$(SolutionDir)proto</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)generated;$(SolutionDir)proto;C:\Users\Rain\vcpkg\installed\x64-windows\include;C:\Users\Rain\vcpkg\installed\x64-windows\include\qt5</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\Users\Rain\vcpkg\installed\x64-windows\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\generated\ocr_service.grpc.pb.cc" />
     <ClCompile Include="..\generated\ocr_service.pb.cc" />
     <ClCompile Include="ClientMain.cpp" />
+    <ClCompile Include="GrpcOcrClient.cpp" />
+    <ClCompile Include="MainWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\generated\ocr_service.grpc.pb.h" />
     <ClInclude Include="..\generated\ocr_service.pb.h" />
+    <ClInclude Include="GrpcOcrClient.h" />
+    <ClInclude Include="MainWindow.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

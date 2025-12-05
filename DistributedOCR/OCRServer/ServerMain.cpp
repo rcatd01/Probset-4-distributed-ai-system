@@ -97,7 +97,8 @@ private:
 };
 
 void RunServer(const std::string& address) {
-    std::size_t numThreads = std::thread::hardware_concurrency();
+    //set number of threads
+    std::size_t numThreads = 4; //std::thread::hardware_concurrency();
     if (numThreads == 0) numThreads = 4;
 
     OCRServiceImpl service(numThreads);
