@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <thread>
 
 struct OcrResult {
     std::string text;

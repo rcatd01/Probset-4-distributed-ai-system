@@ -57,10 +57,26 @@ public:
         for (std::size_t i = 0; i < futures.size(); ++i) {
             using namespace std::chrono;
 
-            auto status = futures[i].wait_for(seconds(5)); // 5s timeout per image
+            // Dynamically set timeout based on image size
+            const auto& task = request->tasks(i);
+            int timeoutSeconds = 30; // Default 30 seconds
+
+            // LOWER threshold so the demo works with normal 4K images
+            const std::size_t LARGE_IMAGE_BYTES = 500 * 1024;  // 500 KB threshold
+
+            if (task.image_data().size() > LARGE_IMAGE_BYTES) {
+                timeoutSeconds = 120; // Extended timeout for large images
+                std::cout << "[LARGE IMAGE] Using extended timeout (" << timeoutSeconds
+                    << "s) for id=" << ids[i]
+                    << " (" << task.image_data().size() << " bytes)\n";
+            }
+
+
+            auto status = futures[i].wait_for(seconds(timeoutSeconds));
 
             if (status == std::future_status::timeout) {
-                std::cerr << "Timeout processing task id=" << ids[i] << "\n";
+                std::cerr << "Timeout processing task id=" << ids[i]
+                    << " after " << timeoutSeconds << "s\n";
 
                 BatchResult* out = reply->add_results();
                 out->set_id(ids[i]);
@@ -76,6 +92,9 @@ public:
                 out->set_id(ids[i]);
                 out->set_text(result.text);
                 out->set_processing_time_ms(result.processingTimeMs);
+
+                std::cout << "Successfully processed task id=" << ids[i]
+                    << " in " << result.processingTimeMs << "ms\n";
             }
             catch (const std::exception& ex) {
                 std::cerr << "Error processing task id=" << ids[i]
@@ -86,9 +105,10 @@ public:
                 out->set_text(std::string("[ERROR] ") + ex.what());
                 out->set_processing_time_ms(0);
             }
-
         }
 
+        std::cout << "Batch processing complete. Sent " << reply->results_size()
+            << " results.\n";
         return Status::OK;
     }
 

@@ -44,9 +44,31 @@ BatchResponse GrpcOcrClient::sendBatch(const std::vector<std::string>& imagePath
     Status status = stub_->ProcessBatch(&ctx, request, &reply);
 
     if (!status.ok()) {
+        std::string friendly;
+
+        switch (status.error_code()) {
+        case grpc::StatusCode::UNAVAILABLE:
+            // Server died / network lost while we were talking to it
+            friendly = "Connection lost. Please try again later.";
+            break;
+
+        case grpc::StatusCode::DEADLINE_EXCEEDED:
+            // Server took too long to respond
+            friendly = "The OCR server took too long to respond (timeout).";
+            break;
+
+        default:
+            // Fallback: show the raw gRPC message
+            friendly = status.error_message();
+            break;
+        }
+
+        // This is what MainWindow will display
         throw std::runtime_error(
-            "RPC failed: code=" + std::to_string(status.error_code()) +
-            " msg=" + status.error_message());
+            "RPC failed (code=" + std::to_string(status.error_code()) +
+            "): " + friendly
+        );
     }
+
     return reply;
 }

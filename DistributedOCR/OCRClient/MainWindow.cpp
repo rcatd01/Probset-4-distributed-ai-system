@@ -1,6 +1,8 @@
-#include "MainWindow.h"
+ï»¿#include "MainWindow.h"
 #include "GrpcOcrClient.h"
+#include <thread>
 
+#include <QtCore/QCoreApplication>  
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QListWidget>
@@ -80,7 +82,7 @@ MainWindow::MainWindow(QWidget* parent)
     // Results text area at bottom 
     resultView_ = new QTextEdit(this);
     resultView_->setReadOnly(true);
-    resultView_->setPlaceholderText("OCR results and logs will appear here…");
+    resultView_->setPlaceholderText("OCR results and logs will appear hereâ€¦");
     mainLayout->addWidget(resultView_, /*stretch*/ 2);
 
     setCentralWidget(central);
@@ -115,7 +117,7 @@ void MainWindow::onAddImages() {
            
             auto* item = new QListWidgetItem();
             item->setData(Qt::UserRole, f);     // store path
-            item->setText("Pending…");
+            item->setText("Pendingâ€¦");
 
             QPixmap pix(f);
             if (!pix.isNull()) {
@@ -146,59 +148,107 @@ void MainWindow::onRunOcr() {
         return;
     }
 
+    // Copy paths to std::vector for the worker thread
     std::vector<std::string> paths;
     paths.reserve(imagePaths_.size());
     for (const QString& p : imagePaths_) {
         paths.push_back(p.toStdString());
     }
 
-    // progress bar
-    progressBar_->setMinimum(0);
-    progressBar_->setMaximum(0); 
+    // Disable buttons while running
+    addButton_->setEnabled(false);
+    runButton_->setEnabled(false);
+    clearButton_->setEnabled(false);
 
     resultView_->clear();
-    resultView_->append("Connecting to server " + serverAddr + "…");
+    resultView_->append("Connecting to server " + serverAddr + "â€¦");
 
-    try {
-        GrpcOcrClient client(serverAddr.toStdString());
-        ocr::BatchResponse reply = client.sendBatch(paths);
+    // Indeterminate progress bar while RPC is in flight
+    progressBar_->setMinimum(0);
+    progressBar_->setMaximum(0);   // 0..0 = busy animation
 
-        progressBar_->setMaximum(1);
-        progressBar_->setValue(1);
 
-        resultView_->append(
-            QString("RPC succeeded. Got %1 results.\n")
-            .arg(reply.results_size()));
+    const std::string serverStr = serverAddr.toStdString();
 
-        // Update both the tiled grid and the log text
-        for (int i = 0; i < reply.results_size(); ++i) {
-            const ocr::BatchResult& r = reply.results(i);
+    // Run the gRPC call on a background thread
+    std::thread([this, serverStr, paths = std::move(paths)]() mutable {
+        try {
+            GrpcOcrClient client(serverStr);
+            ocr::BatchResponse reply = client.sendBatch(paths);
 
-            // 1) Log in the bottom text area
-            resultView_->append(QString("Result for id=%1:").arg(r.id()));
-            resultView_->append("text:\n" +
-                QString::fromStdString(r.text()));
-            resultView_->append(
-                QString("processing_time_ms: %1\n")
-                .arg(r.processing_time_ms()));
-            resultView_->append(
-                "----------------------------------------\n");
+            // Success: update UI on the Qt (GUI) thread
+            QMetaObject::invokeMethod(this,
+                [this, reply]() mutable {
+                    const int n = reply.results_size();
 
-            // 2) Show recognized text under each image tile
-            if (i < imageList_->count()) {
-                auto* item = imageList_->item(i);
-                item->setText(QString::fromStdString(r.text()));
-            }
+                    // Now set a normal progress range
+                    progressBar_->setMinimum(0);
+                    progressBar_->setMaximum(n);
+                    progressBar_->setValue(0);
+
+                    resultView_->append(
+                        QString("RPC succeeded. Got %1 results.\n").arg(n));
+
+                    for (int i = 0; i < n; ++i) {
+                        const ocr::BatchResult& r = reply.results(i);
+
+                        resultView_->append(
+                            QString("Result for id=%1:").arg(r.id()));
+                        resultView_->append(
+                            "text:\n" + QString::fromStdString(r.text()));
+                        resultView_->append(
+                            QString("processing_time_ms: %1\n")
+                            .arg(r.processing_time_ms()));
+                        resultView_->append(
+                            "----------------------------------------\n");
+
+                        if (i < imageList_->count()) {
+                            auto* item = imageList_->item(i);
+                            item->setText(QString::fromStdString(r.text()));
+                        }
+
+                        progressBar_->setValue(i + 1);
+                    }
+
+                    addButton_->setEnabled(true);
+                    runButton_->setEnabled(true);
+                    clearButton_->setEnabled(true);
+
+                },
+                Qt::QueuedConnection);
         }
-    }
-    catch (const std::exception& ex) {
-        progressBar_->setMaximum(1);
-        progressBar_->setValue(0);
+        catch (const std::exception& ex) {
+            // Error: report it on the GUI thread
+            const std::string msg = ex.what();
 
-        QMessageBox::critical(this, "Error",
-            QString("Failed to run OCR:\n%1").arg(ex.what()));
-    }
+            QMetaObject::invokeMethod(this,
+                [this, msg]() {
+                    // Reset bar
+                    progressBar_->setMinimum(0);
+                    progressBar_->setMaximum(1);
+                    progressBar_->setValue(0);
+
+                    resultView_->append("ERROR:");
+                    resultView_->append(QString::fromStdString(msg));
+                    resultView_->append("----------------------------------------\n");
+
+                    QMessageBox::critical(
+                        this,
+                        "Error",
+                        QString("Failed to run OCR:\n%1").arg(QString::fromStdString(msg))
+                    );
+
+                    addButton_->setEnabled(true);
+                    runButton_->setEnabled(true);
+                    clearButton_->setEnabled(true);
+
+                },
+                Qt::QueuedConnection);
+        }
+        }).detach();
 }
+
+
 
 void MainWindow::onClearImages()
 {

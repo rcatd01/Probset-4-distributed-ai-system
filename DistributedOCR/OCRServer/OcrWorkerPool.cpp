@@ -69,13 +69,15 @@ void OcrWorkerPool::workerLoop(int workerIndex) {
         }
 
         try {
-            // Run OCR on this worker thread
+            std::cout << "[Worker " << workerIndex
+                << "] processing id=" << job->id << "\n";
+
             OcrResult result = run_ocr_on_bytes(job->imageBytes);
             job->promise.set_value(std::move(result));
         }
         catch (...) {
-            // Propagate any exception back to the caller
             job->promise.set_exception(std::current_exception());
         }
     }
 }
+
